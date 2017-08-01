@@ -1039,6 +1039,7 @@ constructor(props) {
         ref="trigger"
       >
         <div
+          autoFocus={props.focus}
           style={props.style}
           ref="root"
           onBlur={this.onOuterBlur}
