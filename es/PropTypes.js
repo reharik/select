@@ -1,38 +1,25 @@
 import PropTypes from 'prop-types';
 
 function valueType(props, propName, componentName) {
-  const labelInValueShape = PropTypes.shape({
+  var labelInValueShape = PropTypes.shape({
     key: PropTypes.string.isRequired,
-    label: PropTypes.string,
+    label: PropTypes.string
   });
   if (props.labelInValue) {
-    const validate = PropTypes.oneOfType([
-      PropTypes.arrayOf(labelInValueShape),
-      labelInValueShape,
-    ]);
-    const error = validate(...arguments);
+    var validate = PropTypes.oneOfType([PropTypes.arrayOf(labelInValueShape), labelInValueShape]);
+    var error = validate.apply(undefined, arguments);
     if (error) {
-      return new Error(
-        `Invalid prop \`${propName}\` supplied to \`${componentName}\`, ` +
-        `when you set \`labelInValue\` to \`true\`, \`${propName}\` should in ` +
-        `shape of \`{ key: string, label?: string }\`.`
-      );
+      return new Error('Invalid prop `' + propName + '` supplied to `' + componentName + '`, ' + ('when you set `labelInValue` to `true`, `' + propName + '` should in ') + 'shape of `{ key: string, label?: string }`.');
     }
   } else if (props.multiple && props[propName] === '') {
-    return new Error(
-      `Invalid prop \`${propName}\` of type \`string\` supplied to \`${componentName}\`, ` +
-      `expected \`array\` when \`multiple\` is \`true\`.`
-    );
+    return new Error('Invalid prop `' + propName + '` of type `string` supplied to `' + componentName + '`, ' + 'expected `array` when `multiple` is `true`.');
   } else {
-    const validate = PropTypes.oneOfType([
-      PropTypes.arrayOf(PropTypes.string),
-      PropTypes.string,
-    ]);
-    return validate(...arguments);
+    var _validate = PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.string), PropTypes.string]);
+    return _validate.apply(undefined, arguments);
   }
 }
 
-export const SelectPropTypes = {
+export var SelectPropTypes = {
   defaultActiveFirstOption: PropTypes.bool,
   multiple: PropTypes.bool,
   filterOption: PropTypes.any,
@@ -63,5 +50,5 @@ export const SelectPropTypes = {
   maxTagTextLength: PropTypes.number,
   tokenSeparators: PropTypes.arrayOf(PropTypes.string),
   getInputElement: PropTypes.func,
-  focus: PropTypes.bool,
+  focus: PropTypes.bool
 };
